@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>leige-mySoft-pom</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <!-- profiles: 目前主要是对web项目中的静态资源进行过滤，如果你的静态资源中没有变量需要替换，请删除这一段
+    会用下面的*.properties文件里面的变量值去替换${...}或者$[...]的值,，这个被替换的文件*.properties在
+    resources下的目录或者在resources目录的子目录中，里面的值都可以被替换-->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <filters>
+                    <filter>../${project.parent.artifactId}/vars/vars.dev.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>sit</id>
+            <build>
+                <filters>
+                    <filter>../${project.parent.artifactId}/vars/vars.sit.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>pre</id>
+            <build>
+                <filters>
+                    <filter>../${project.parent.artifactId}/vars/vars.pre.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>xgpre</id>
+            <build>
+                <filters>
+                    <filter>../${project.parent.artifactId}/vars/vars.xg.pre.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>pst</id>
+            <build>
+                <filters>
+                    <filter>../${project.parent.artifactId}/vars/vars.pst.properties</filter>
+                </filters>
+            </build>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <build>
+                <filters>
+                    <filter>../${project.parent.artifactId}/vars/vars.prod.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
+    <modules>
+        <module>../leige-mySoft-socket</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>RELEASE</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>${basedir}/src/test/resources</directory>
+            </testResource>
+        </testResources>
+        <plugins>
+
+            <plugin>
+                <!--注意跑测试用例只会到src/test文件加下找，不会到src/main去找-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19</version>
+                <configuration>
+                    <!--配置是否跳过测试用例执行-->
+                    <!--<skipTests>true</skipTests>-->
+                    <argLine>-noverify -Dfile.encoding=UTF-8 -Xms2048m -Xmx4096m</argLine>
+                    <excludes>
+                        <exclude>**old/com/suning/oms/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <!--&lt;!&ndash;maven占位符默认的是${},也可以自己指定,在编译的时候，使用上面的profile进行替换，这里默认是${}-->
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
