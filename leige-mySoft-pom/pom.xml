@@ -67,6 +67,8 @@
     </profiles>
     <modules>
         <module>../leige-mySoft-socket</module>
+        <module>../leige-mySoft-algorithm</module>
+        <module>../leige-mySoft-zookeeper</module>
     </modules>
 
     <dependencyManagement>
@@ -78,6 +80,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
 
     <build>
         <resources>
@@ -103,7 +106,7 @@
                     <!--<skipTests>true</skipTests>-->
                     <argLine>-noverify -Dfile.encoding=UTF-8 -Xms2048m -Xmx4096m</argLine>
                     <excludes>
-                        <exclude>**old/com/suning/oms/**</exclude>
+                        <exclude>**old/com/gelei/oms/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
