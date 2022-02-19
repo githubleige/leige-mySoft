@@ -15,6 +15,7 @@ public class Server {
             while (true)
             {
                 // 每当接受到客户端Socket的请求，服务器端也对应产生一个Socket
+//                The method blocks until a connection is made.
                 Socket s = ss.accept();
 //                Thread.sleep(10000);
                 // 将Socket对应的输出流包装成PrintStream
