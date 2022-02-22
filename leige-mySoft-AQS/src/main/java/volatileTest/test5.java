@@ -2,9 +2,10 @@ package volatileTest;
 
 import java.util.concurrent.CountDownLatch;
 
-//利用synchronized实现的安全性的累加
-public class test1 {
-    public int inc = 0;
+
+public class test5 {
+    public volatile int inc = 0;
+//    public int inc = 0;
     private static CountDownLatch countDownLatch = new CountDownLatch(10);
 
     public void increase() {
@@ -19,16 +20,15 @@ public class test1 {
     }
 
     public static void main(String[] args) throws Exception{
-
 //        while(true){
-            final test1 test = new test1();
+            final test5 test = new test5();
             test.inc=0;
             for(int i=0;i<10;i++){
                 new Thread(){
                     public void run() {
                         int j=0;
                         for(;j<1000;j++){
-                            test.syncIncrease();
+                            test.increase();
 
                         }
 //                        System.out.println(j);
@@ -45,7 +45,7 @@ public class test1 {
 //            for(Map.Entry<Thread, StackTraceElement[]> entry : map.entrySet())
 //                System.out.println(entry.getKey().getName());
 //            System.out.println(map.size());
-            System.out.println(test.inc);
+        System.out.println(test.inc);
 //        }
 
     }

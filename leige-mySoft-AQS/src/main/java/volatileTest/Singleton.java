@@ -3,7 +3,7 @@ package volatileTest;
 /**
  * 实际上当程序执行到2处的时候，如果我们没有使用volatile关键字修饰变量singleton，就可能会造成错误。
  * 这是因为使用new关键字初始化一个对象的过程并不是一个原子的操作，它分成下面三个步骤进行：
- *a. 给 singleton 分配内存
+ * a. 给 singleton 分配内存
  * b. 调用 Singleton 的构造函数来初始化成员变量
  * c. 将 singleton 对象指向分配的内存空间（执行完这步 singleton 就为非 null 了）
  *

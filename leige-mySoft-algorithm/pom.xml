@@ -13,4 +13,13 @@
     <artifactId>leige-mySoft-algorithm</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+
+        </dependency>
+    </dependencies>
+
 </project>
