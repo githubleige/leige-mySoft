@@ -77,6 +77,7 @@ public class balanceBinaryTree {
             }else if(calcNodeBalanceValue(p) == -2){
                 fixAfterInsertion(p,AdjustTree.RIGHT);
             }
+            //开始不断的向上递归，直到根节点
             p = p.parent;
         }
     }
@@ -104,6 +105,7 @@ public class balanceBinaryTree {
 
     /**
      * 调整树结构 ，该方法有瑕疵，本想直接修改，但为了起参考作用就留在这，正解见评论。修改与2019-08-03 12:13
+     * 这已经是修正后的代码了
      * @param p
      * @param type
      */
@@ -121,6 +123,37 @@ public class balanceBinaryTree {
                 rightRotation(rightChild);
             }
             leftRotation(p);
+        }
+    }
+
+    /**
+     * 调整树结构 ，该方法有瑕疵，本想直接修改，但为了起参考作用就留在这，正解见评论。修改与2019-08-03 12:13
+     * 这种方法的问题就是：
+     *            A
+     *        B      C
+     *      D   E
+     *        F
+     * @param p
+     * @param type
+     */
+    private void fixAfterInsertionWithProblem(Node p, int type) {
+        // TODO Auto-generated method stub
+        if(type == LEFT){
+            final Node leftChild = p.leftChild;
+            if(leftChild.leftChild != null){//右旋
+                rightRotation(p);
+            }else if(leftChild.rightChild != null){// 先左旋后右旋
+                leftRotation(leftChild);
+                rightRotation(p);
+            }
+        }else{
+            final Node rightChild = p.rightChild;
+            if(rightChild.rightChild != null){// 左旋
+                leftRotation(p);
+            }else if(rightChild.leftChild != null){// 先右旋，后左旋
+                rightRotation(p);
+                leftRotation(rightChild);
+            }
         }
     }
 
