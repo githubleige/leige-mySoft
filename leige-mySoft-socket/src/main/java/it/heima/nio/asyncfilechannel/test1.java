@@ -6,13 +6,14 @@ import sun.reflect.Reflection;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
+
 /**
  * Unsafe这个类中的方法具有原子性,通过总线锁的形式实现
  */
 public class test1 {
     public static void main(String[] args) {
         final Thread thread = new Thread();
-        //FutureTask<Integer>实现了(Runnable, Future<Integer>)两个接口
+        //ask<Integer>实现了(Runnable, Future<Integer>)两个接口
         //if (state != NEW || !UNSAFE.compareAndSwapObject(this, runnerOffset,null, Thread.currentThread()))
         //注意这个方法的作用UNSAFE.compareAndSwapObject(this, runnerOffset,null, Thread.currentThread())是：
         //FutureTask里面有一个实例成员变量：private volatile Thread runner;

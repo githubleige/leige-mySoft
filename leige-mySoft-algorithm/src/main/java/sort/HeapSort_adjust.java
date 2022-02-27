@@ -7,8 +7,8 @@ public class HeapSort_adjust {
     public static int len;
 
     public static void main(String[] args) {
-        int[] array = new int[]{9, 8, 7, 6, 5, 43, 1};
-//        int[] array = new int[]{8,9,10};
+//        int[] array = new int[]{9, 8, 7, 6, 5, 43, 1};
+        int[] array = new int[]{8,9,10};
         HeapSort(array);
         System.out.println(Arrays.toString(array));
     }
