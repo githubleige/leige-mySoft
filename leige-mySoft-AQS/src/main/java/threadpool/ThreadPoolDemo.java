@@ -10,19 +10,23 @@ public class ThreadPoolDemo {
         ExecutorService executorService2 = Executors.newFixedThreadPool(10);//慢
         ExecutorService executorService3 = Executors.newSingleThreadExecutor();//最慢
 
-        RejectedExecutionHandler rejectedExecutionHandler=  new RejectedExecutionHandler() {
-            @Override
-            public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-                // 写数据库的代码
-            }
-        };
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 20,
-                0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(10),new MonkeyRejectedExecutionHandler());//自定义线程
+        executorService1.submit(()->{
+            System.out.println("hello world");
+        });
 
-        for (int i = 1; i <= 100; i++) {
-            threadPoolExecutor.execute(new MyTask(i));
-
-        }
+//        RejectedExecutionHandler rejectedExecutionHandler=  new RejectedExecutionHandler() {
+//            @Override
+//            public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+//                // 写数据库的代码
+//            }
+//        };
+//        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10, 20,
+//                0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(10),new MonkeyRejectedExecutionHandler());//自定义线程
+//
+//        for (int i = 1; i <= 100; i++) {
+//            threadPoolExecutor.execute(new MyTask(i));
+//
+//        }
     }
 }
 

@@ -15,6 +15,20 @@ public class ConditionTest {
     public static void main(String[] args) {
         //默认是非公平锁
         Lock lock = new ReentrantLock();
+        //这里的lock.newCondition()获得其实是一个内部类的对象， 这个类就是：
+        // public class ConditionObject implements Condition, java.io.Serializable
+        //ConditionObject是在AQS中的一个内部类。所以要想获取ConditionObject对象必须先要有外部类的AQS对象才可以
+        //ReentrantLock中的内部类：NonfairSync的继承关系是：NonfairSync->Sync->AQS.
+        //所以一开始在创建new ReentrantLock()的时候：
+        //    public ReentrantLock() {
+        //        sync = new NonfairSync();
+        //    }
+        //调用上面的构造器。把ReentrantLock实例对象中的private final Sync sync属性进行填充。
+        //所以ConditionObject对象寄生的AQS对象，在一开始就产生了。就是在创建ReentrantLock对象时，创建的对象，sync属性值得填充。
+        //创建ConditionObject对象：sync.new ConditionObject();
+        //要知道内部类是可以直接访问外部类的属性，所以ConditionObject对象和创建他时用的AQS对象是公用一个private volatile int state;属性的。
+        //所以这就是把condition和上面的lock紧紧联系在一起的纽带。
+        // 因为从本质上来说他们公用一个互斥量state，这个state既可以被AQS对象直接访问也可以被ConditionObject对象直接访问
         Condition condition = lock.newCondition();
         Object obj=new Object();
 

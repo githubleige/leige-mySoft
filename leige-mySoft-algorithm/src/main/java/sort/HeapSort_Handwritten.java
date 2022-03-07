@@ -2,6 +2,9 @@ package sort;
 
 import java.util.Arrays;
 
+/**
+ * 这样做的时间复杂度是n平方，不是nlgn.因为你每次都进行了
+ */
 public class HeapSort_Handwritten {
 
     private static int lastSortIndex;

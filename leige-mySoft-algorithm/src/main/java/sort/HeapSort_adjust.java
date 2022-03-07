@@ -2,6 +2,9 @@ package sort;
 
 import java.util.Arrays;
 
+/**
+ * 这样做只有第一次是进行n/2次比较，后面都是logd底数2的n比较了
+ */
 public class HeapSort_adjust {
     //这是一个全局变量，用于标记还剩多少数需要排序
     public static int len;

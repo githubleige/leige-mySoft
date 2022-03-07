@@ -58,7 +58,7 @@ public class SemaphoneTest2 {
     public static void main(String[] args) throws InterruptedException {
         {
             for (; ; ) {
-//                Thread.sleep(10);
+                Thread.sleep(10);
                 // 模拟请求以10个/s的速度
                 executor.execute(() -> exec());
             }

@@ -17,7 +17,7 @@ public class CyclicBarrierTest3 {
                 (r) -> new Thread(r, counter.addAndGet(1) + " 号 "),
                 new ThreadPoolExecutor.AbortPolicy());
 
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(5,
+        CyclicBarrier cyclicBarrier = new CyclicBarrier(3,
                 () -> System.out.println(Thread.currentThread().getName()+"裁判：比赛开始~~"));
 
         for (int i = 0; i < 10; i++) {
