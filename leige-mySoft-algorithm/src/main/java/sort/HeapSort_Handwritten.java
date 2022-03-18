@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * 这样做的时间复杂度是n平方，不是nlgn.因为你每次都进行了
+ * 这是一个错误的堆排序
  */
 public class HeapSort_Handwritten {
 

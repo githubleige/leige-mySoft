@@ -46,7 +46,7 @@ public class SyncDemo {
         t2.join();
 
         //思考： counter=？
-        System.out.println("counter={}"+ counter);
+        System.out.println("counter{}"+ counter);
         System.out.println(con1==con2);
 
     }
