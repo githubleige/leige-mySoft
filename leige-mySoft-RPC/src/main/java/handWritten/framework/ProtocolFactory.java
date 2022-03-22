@@ -12,7 +12,7 @@ public class ProtocolFactory {
         switch (name) {
             case "http":
                 return new HttpProtocol();
-            case "dubbo":
+            case "META-INF/dubbo":
                 return new DubboProtocol();
             default:
                 break;

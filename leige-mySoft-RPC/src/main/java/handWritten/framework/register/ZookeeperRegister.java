@@ -27,7 +27,7 @@ public class ZookeeperRegister {
 
     public static void regist(String interfaceName, URL url) {
         try {
-            String result = client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(String.format("/dubbo/service/%s/%s", interfaceName, JSONObject.toJSONString(url)), null);
+            String result = client.create().creatingParentsIfNeeded().withMode(CreateMode.EPHEMERAL).forPath(String.format("/META-INF/dubbo/service/%s/%s", interfaceName, JSONObject.toJSONString(url)), null);
             System.out.println(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class ZookeeperRegister {
         List<URL> urlList = new ArrayList<>();
 
         try {
-            List<String> result = client.getChildren().forPath(String.format("/dubbo/service/%s", interfaceName));
+            List<String> result = client.getChildren().forPath(String.format("/META-INF/dubbo/service/%s", interfaceName));
             for (String urlstr : result) {
                 urlList.add(JSONObject.parseObject(urlstr, URL.class));
             }
