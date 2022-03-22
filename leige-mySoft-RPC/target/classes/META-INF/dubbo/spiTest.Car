@@ -1,0 +1,3 @@
+red=spiTest.RedCar
+black=spiTest.BlackCar
+spiTest.CarWrapper
