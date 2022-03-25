@@ -19,6 +19,7 @@ public class CompletableFutureDemothenAcceptBoth {
             @Override
              public Integer get() {
                 int number = new Random().nextInt(3) + 1;
+                log.info("是否是后台进程"+Thread.currentThread().isDaemon());
                   try {
                     TimeUnit.SECONDS.sleep(number);
                      } catch (InterruptedException e) {
@@ -33,6 +34,7 @@ public class CompletableFutureDemothenAcceptBoth {
               @Override
              public String get() {
                   int number = new Random().nextInt(3) + 1;
+                  log.info("是否是后台进程"+Thread.currentThread().isDaemon());
                   try {
                       TimeUnit.SECONDS.sleep(number);
                      } catch (InterruptedException e) {
@@ -43,12 +45,20 @@ public class CompletableFutureDemothenAcceptBoth {
                   }
              });
 
-       Void voida=futrue1.thenAcceptBoth(future2, new BiConsumer<Integer, String>() {
-              @Override
-             public void accept(Integer x, String y) {
-                   log.info("最终结果："+ (x + y));
-                  }
-             }).join();
+//       Void voida=futrue1.thenAcceptBoth(future2, new BiConsumer<Integer, String>() {
+//              @Override
+//             public void accept(Integer x, String y) {
+//                   log.info("最终结果："+ (x + y));
+//                  }
+//             }).join();
+        futrue1.thenAcceptBoth(future2, new BiConsumer<Integer, String>() {
+            @Override
+            public void accept(Integer x, String y) {
+                log.info("最终结果是否是后台进程"+Thread.currentThread().isDaemon());
+                log.info("最终结果："+ (x + y));
+            }
+        });
+        System.out.println("主线程结束");
         }
 
 
