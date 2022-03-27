@@ -160,3 +160,6 @@ UserService$$EnhancerByCGLIB$$4d890297$$FastClassByCGLIB$$6ea3bb5e的
     }
 
 
+fastClass里面的public int getIndex(Signature var1)方法相当于给fastClss的原来类的每个方法赋予一个坐标，下面只要穿这个
+坐标就可以进行调用了
+
