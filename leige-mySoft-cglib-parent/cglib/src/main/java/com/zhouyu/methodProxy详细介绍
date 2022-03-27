@@ -10,4 +10,38 @@ metthodProxy其实就是一个cglib构造的一个对象，目的就是不通过
 
 methodProxy生成过程：
 首先通过UserService$$EnhancerByCGLIB$$4d890297的静态代码块进行初始化
+static {
+        CGLIB$STATICHOOK1();
+}
+Method CGLIB$test$0$Method = ReflectUtils.findMethods(new String[]{"test", "()V"}, (var1 = Class.forName("com.zhouyu.UserService")).getDeclaredMethods())[0];
+MethodProxy CGLIB$test$0$Proxy = MethodProxy.create(var1, var0, "()V", "test", "CGLIB$test$0");
+// Class var0 = Class.forName("com.zhouyu.UserService$$EnhancerByCGLIB$$4d890297");
+// Class var1 = Class.forName("com.zhouyu.UserService");
+CGLIB$test$0$Method就是把void test()方法的Method对象赋值给它
+CGLIB$test$0$Proxy就是void test()方法在代理子类中生成代理方法（随便怎么叫），
+每个方法在UserService$$EnhancerByCGLIB$$4d890297都会有一个对应的代理方法，void test()对应的代理方法就是：
+final void CGLIB$test$0() {
+        super.test();
+    }
+
+现在开始根据这些参数开始初始化MethodProxy：
+public class MethodProxy {
+    private Signature sig1; //这就是一个方法签名（里面有方法的名字，以及返回值和参数类型：（"test","()V"））
+    private Signature sig2;（"CGLIB$test$0","()V"）
+    private MethodProxy.CreateInfo createInfo;//这也是一个重要的属性，下面介绍，主要用来生成对应类的fastClass
+    private final Object initLock = new Object();//就是一个锁对象
+    private volatile MethodProxy.FastClassInfo fastClassInfo;//根据createInfo生成的对象容器，这个只有在调用MethodProxy的相关invoke方法才进行初始化
+    ……
+}
+
+private static class CreateInfo {
+        Class c1;//就是上面的var1  Class.forName("com.zhouyu.UserService");
+        Class c2;//就是上面的var0  Class.forName("com.zhouyu.UserService$$EnhancerByCGLIB$$4d890297");
+        NamingPolicy namingPolicy; //生成对应类的fastClass的名字的命名策略（默认）
+        GeneratorStrategy strategy; //生成对应类的fastClass的方法策略（默认）
+        boolean attemptLoad;//生成Class对象是否立即加载（默认值）
+        ……
+}
+
+进行methodProxy.invoke(target, objects);方法的调用：
 
