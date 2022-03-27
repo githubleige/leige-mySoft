@@ -42,6 +42,121 @@ private static class CreateInfo {
         boolean attemptLoad;//生成Class对象是否立即加载（默认值）
         ……
 }
+//target只能是UserService不能是UserService$$EnhancerByCGLIB$$4d890297
+进行methodProxy.invoke(target, objects);方法的调用，
+初始化private volatile FastClassInfo fastClassInfo;
+private static class FastClassInfo
+    {
 
-进行methodProxy.invoke(target, objects);方法的调用：
+
+        FastClass f1;// 根据Class var1 = Class.forName("com.zhouyu.UserService");生成的FastClass
+        FastClass f2;//根据Class var0 = Class.forName("com.zhouyu.UserService$$EnhancerByCGLIB$$4d890297");生成的FastClass
+        int i1;// private Signature sig1（（"test","()V"）））;在var1中的方法坐标
+        int i2;// private Signature sig2;（"CGLIB$test$0","()V"）在var0中的方法坐标
+    }
+
+ 初始化好的 fastClassInfo = fci;//就是复制给上面的private volatile MethodProxy.FastClassInfo fastClassInfo;
+
+ 执行：
+ return fastClassInfo.f1.invoke(fastClassInfo.i1, obj, args);
+ 进入invoke方法：var2只能传UserService对象，不能传UserService$$EnhancerByCGLIB$$4d890297对象，否则无限循环调用这个方法，抛出Exception in thread "main" java.lang.StackOverflowError
+UserService$$FastClassByCGLIB$$4fef7899的 public Object invoke(int var1, Object var2, Object[] var3) throws InvocationTargetException {
+         UserService var10000 = (UserService)var2;
+         //方法坐标
+         int var10001 = var1;
+
+         try {
+             switch(var10001) {
+             case 0:
+                 var10000.test();
+                 return null;
+             case 1:
+                 return new Boolean(var10000.equals(var3[0]));
+             case 2:
+                 return var10000.toString();
+             case 3:
+                 return new Integer(var10000.hashCode());
+             }
+         } catch (Throwable var4) {
+             throw new InvocationTargetException(var4);
+         }
+
+         throw new IllegalArgumentException("Cannot find matching method/constructor");
+     }
+
+
+现在看另一个方法：
+o是UserService$$EnhancerByCGLIB$$4d890297对象，只能是UserService$$EnhancerByCGLIB$$4d890297对象，如果传UserService
+会抛出Exception in thread "main" java.lang.ClassCastException: com.zhouyu.UserService cannot be cast to com.zhouyu.UserService$$EnhancerByCGLIB$$4d890297
+原因是因为下面的代码有一行是这样的：
+UserService$$EnhancerByCGLIB$$4d890297 var10000 = (UserService$$EnhancerByCGLIB$$4d890297)o;
+真实的对象是UserService，UserService$$EnhancerByCGLIB$$4d890297 只是子类。父类不能强转子类
+methodProxy.invokeSuper(o, objects);
+其他都和上面一样。但是最后一行不一样：
+return fastClassInfo.f2.invoke(fci.i2, obj, args);
+进入（4d890297代表的就是UserService$$EnhancerByCGLIB$$4d890297类）
+UserService$$EnhancerByCGLIB$$4d890297$$FastClassByCGLIB$$6ea3bb5e的
+ public Object invoke(int var1, Object var2, Object[] var3) throws InvocationTargetException {
+        4d890297 var10000 = (4d890297)var2;
+        int var10001 = var1;
+
+        try {
+            switch(var10001) {
+            case 0:
+                return new Boolean(var10000.equals(var3[0]));
+            case 1:
+                return var10000.toString();
+            case 2:
+                return new Integer(var10000.hashCode());
+            case 3:
+                return var10000.clone();
+            case 4:
+                return var10000.newInstance((Callback[])var3[0]);
+            case 5:
+                return var10000.newInstance((Class[])var3[0], (Object[])var3[1], (Callback[])var3[2]);
+            case 6:
+                return var10000.newInstance((Callback)var3[0]);
+            case 7:
+                var10000.test();
+                return null;
+            case 8:
+                var10000.setCallbacks((Callback[])var3[0]);
+                return null;
+            case 9:
+                var10000.setCallback(((Number)var3[0]).intValue(), (Callback)var3[1]);
+                return null;
+            case 10:
+                return var10000.getCallbacks();
+            case 11:
+                return var10000.getCallback(((Number)var3[0]).intValue());
+            case 12:
+                4d890297.CGLIB$SET_THREAD_CALLBACKS((Callback[])var3[0]);
+                return null;
+            case 13:
+                4d890297.CGLIB$SET_STATIC_CALLBACKS((Callback[])var3[0]);
+                return null;
+            case 14:
+                return var10000.CGLIB$toString$2();
+            case 15:
+                var10000.CGLIB$test$0();
+                return null;
+            case 16:
+                return new Integer(var10000.CGLIB$hashCode$3());
+            case 17:
+                return var10000.CGLIB$clone$4();
+            case 18:
+                return new Boolean(var10000.CGLIB$equals$1(var3[0]));
+            case 19:
+                4d890297.CGLIB$STATICHOOK1();
+                return null;
+            case 20:
+                return 4d890297.CGLIB$findMethodProxy((Signature)var3[0]);
+            }
+        } catch (Throwable var4) {
+            throw new InvocationTargetException(var4);
+        }
+
+        throw new IllegalArgumentException("Cannot find matching method/constructor");
+    }
+
 

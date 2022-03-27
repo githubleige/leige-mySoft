@@ -39,9 +39,9 @@ public class Main {
 
 //                    methodProxy.invoke(target, objects);  // test()  Method
                     // 下面这行代码执⾏UserService代理对象的CGLIB$test$0()⽅法，也就是执⾏UserService代理对象的⽗类的test()
-                    methodProxy.invokeSuper(o, objects);  // CGLIB$test$4() Method
-                    method.invoke(target, objects);
-                    methodProxy.invoke(target, objects);
+                    methodProxy.invokeSuper(target, objects);  // CGLIB$test$4() Method
+//                    method.invoke(target, objects);
+//                    methodProxy.invoke(o, objects);
 //                    method.invoke(o, objects);
                     System.out.println("after...");
                     return null;
