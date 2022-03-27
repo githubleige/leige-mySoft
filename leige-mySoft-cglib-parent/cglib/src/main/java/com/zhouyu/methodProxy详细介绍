@@ -1,0 +1,13 @@
+metthodProxy其实就是一个cglib构造的一个对象，目的就是不通过反射调用方法（JDK动态代理如果需要调用代理对象
+的方法，就是传入的method对象，不可避免的需要用到反射的方法进行代用，但是用反射的方法进行调用在效率上可能出现
+一些偏差，原因：反射的本质就是通过class对象来进行一些操作，class在方法区构造出来，其实就是在加载*.calss文件
+进行加载连接初始化，通过对字节码的学习可以知道，class数据结构是一个边长的数据结构，要想知道某一个属性的具体
+位置就需要进行逐一解析，这是非常影响效率的，所以我们cglib通过生成fastClass的方式来解决不通过反射的方法来进行
+方法调用，具体过程如下：）
+我们以调用methodProxy.invokeSuper(o, objects);例子来进行详细的介绍。假设我现在调用userService.test();
+参数：o是cglib生成的代理对象(子类的对象)  class com.zhouyu.UserService$$EnhancerByCGLIB$$4d890297
+      objects：方法入参
+
+methodProxy生成过程：
+首先通过UserService$$EnhancerByCGLIB$$4d890297的静态代码块进行初始化
+

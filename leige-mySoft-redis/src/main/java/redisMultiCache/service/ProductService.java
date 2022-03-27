@@ -79,7 +79,7 @@ public class ProductService {
         // 在某一时刻突然出现几万请求过来击穿数据库，数据库容忍的最大并发量就是几百了顶多1千多，如果这里加锁就会导致只有一个请求会去查询数据库，其他的都直接从缓存中拿）
         RLock hotCreateCacheLock = redisson.getLock(LOCK_PRODUCT_HOT_CACHE_CREATE_PREFIX + productId);
         hotCreateCacheLock.lock();
-        // 这个优化谨慎使用，防止超时导致的大规模并发重建问题
+        // 这个优化谨慎使用，防止超时导致的大规模并发重建问题（把时间设置的较大就可以解决，不然这种并发量太小了，无法忍受）
         // hotCreateCacheLock.tryLock(1, TimeUnit.SECONDS);
         try {
             product = getProductFromCache(productCacheKey);
