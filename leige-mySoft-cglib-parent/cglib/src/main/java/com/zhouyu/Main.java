@@ -19,9 +19,10 @@ public class Main {
         final UserService target = new UserService();
 
        Enhancer enhancer = new Enhancer();
+
        //是否缓存生成的代理类的class对象（UserService$$EnhancerByCGLIB$$4d890297.class），并缓存在一个map中。这样在下次再次create的时候直接拿到这个class对象创建对应对象就可以了
         //
-//        enhancer.setUseCache(false);
+        enhancer.setUseCache(false);
         enhancer.setSuperclass(UserService.class);
         enhancer.setCallback(new MethodInterceptor() {
             /**
@@ -30,6 +31,7 @@ public class Main {
              * objects：方法入参
              * methodProxy: 代理方法(这个很复杂，需要看底层代码) 是这样一个public void test()方法的代理对象，
              * 具体是代理什么对象的public void test()对象，需要由传入的代理对象决定。现在只知道有这么个public void test()方法，具体实现还要看代理对象
+             * 提供methodProxy目的就是替代使用method反射调用方法（反射效率低）
              */
             @Override
             public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
