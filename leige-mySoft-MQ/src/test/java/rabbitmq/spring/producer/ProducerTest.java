@@ -15,7 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-rabbitmq/producer/spring-rabbitmq-producer.xml")
 public class ProducerTest {
-
+    //其实在rabbitTemplate操作时候配置文件（xml）只需要配置connection-factory。因为我只需要连接端口建立网络连接，把数据发送给你
+    //就可以了，具体你有没有相应的交换机和队列。是你服务端自己需要维护的事。这里在xml文件中配置，只是预防没有，我把需要创建的元信息告诉你
     @Autowired
     private RabbitTemplate  rabbitTemplate;
 

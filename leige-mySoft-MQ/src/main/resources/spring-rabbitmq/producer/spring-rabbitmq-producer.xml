@@ -31,7 +31,7 @@
 
 
 
-
+    <!--下面这些配置只是在broker端没有这些信息的情况下生效，只是为防止broker端没有这些信息-->
     <!--消息可靠性投递（生产端）-->
     <rabbit:queue id="test_queue_confirm" name="test_queue_confirm">
         <!--注意如果要想在服务端自己建队列（超时抛弃的），客户端和服务端的参数x-message-ttl必须一致，否则会报错-->

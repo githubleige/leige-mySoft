@@ -80,7 +80,7 @@ public class ProductService {
         RLock hotCreateCacheLock = redisson.getLock(LOCK_PRODUCT_HOT_CACHE_CREATE_PREFIX + productId);
         hotCreateCacheLock.lock();
         // 这个优化谨慎使用，防止超时导致的大规模并发重建问题（把时间设置的较大就可以解决，不然这种并发量太小了，无法忍受）
-        // hotCreateCacheLock.tryLock(1, TimeUnit.SECONDS);
+//         hotCreateCacheLock.tryLock(1, TimeUnit.SECONDS);
         try {
             product = getProductFromCache(productCacheKey);
             if (product != null) {
