@@ -16,6 +16,7 @@ public class MyMethodInterceptor implements MethodInterceptor {
     @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
         System.out.println("======插入前置通知======");
+        System.out.println(o.getClass().isAnnotationPresent(WorkflowNode.class));
 //        System.out.println(method.getName());
 //        System.out.println(method.getDeclaringClass());
 //        System.out.println(method.toString());

@@ -1,5 +1,6 @@
 package cglib.study1;
 
+@WorkflowNode(nodeCode="testzhujie")
 public class HelloService {
     public HelloService() {
         System.out.println("HelloService构造");
