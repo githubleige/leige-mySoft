@@ -49,6 +49,7 @@ public class AckListener implements ChannelAwareMessageListener {
             //拒绝签收
              /*
             第三个参数：requeue：重回队列。如果设置为true，则消息重新回到queue，broker会重新发送该消息给消费端
+            如果prefetch="1"，那个消息一直被消费失败，那么会阻塞消费。不断重复消费那个消息
              */
             channel.basicNack(deliveryTag, true, true);
 
