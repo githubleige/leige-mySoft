@@ -43,17 +43,17 @@ public class BiasedLockingTest {
 
         //睡眠3s钟保证线程thead1创建对象完成。保证50个对象都偏向thead1成功，并放入list
         Thread.sleep(3000);
-        System.out.println("打印thead1，list中第98个对象的对象头：");
-        System.out.println((ClassLayout.parseInstance(list.get(97)).toPrintable()));
+        System.out.println("打印thead1，list中第20个对象的对象头：");
+        System.out.println((ClassLayout.parseInstance(list.get(19)).toPrintable()));
         
         // 线程2
         new Thread(() -> {
-            for (int i = 0; i < 40; i++) {
+            for (int i = 0; i < 45; i++) {
                 Object obj = list.get(i);
-                if(i>=15&&i<=21||i>=38){
-                    System.out.println("thread2-第" + (i + 1) + "次加锁执行前\t"+
-                            ClassLayout.parseInstance(obj).toPrintable());
-                }
+//                if(i>=15&&i<=21||i>=38){
+//                    System.out.println("thread2-第" + (i + 1) + "次加锁执行前\t"+
+//                            ClassLayout.parseInstance(obj).toPrintable());
+//                }
                 synchronized (obj) {
                     if(i>=15&&i<=21||i>=38){
                         System.out.println("thread2-第" + (i + 1) + "次加锁执行中\t"+
@@ -92,7 +92,7 @@ public class BiasedLockingTest {
 //        },"thread3").start();
 
 
-        new Thread(() -> {
+      new Thread(() -> {
             for (int i = 0; i < 50; i++) {
                 Object lock =list.get(i);
                 if(i>=17&&i<=21||i>=35&&i<=41){

@@ -17,15 +17,15 @@ public class LockEscalationDemo2 {
 
     public static void main(String[] args) throws InterruptedException {
 
-        System.out.println(ClassLayout.parseInstance(new Object()).toPrintable());
+//        System.out.println(ClassLayout.parseInstance(new Object()).toPrintable());
         //HotSpot 虚拟机在启动后有个 4s 的延迟才会对每个新建的对象开启偏向锁模式
         Thread.sleep(5000);
         Object obj = new Object();
         // 思考： 如果对象调用了hashCode,还会开启偏向锁模式吗
         //obj.hashCode();
-        System.out.println(ClassLayout.parseInstance(obj).toPrintable());
+//        System.out.println(ClassLayout.parseInstance(obj).toPrintable());
 
-        new Thread(new Runnable() {
+        Thread t1=new Thread(new Runnable() {
             @Override
             public void run() {
                 System.out.println(Thread.currentThread().getName()+"开始执行。。。\n"
@@ -46,11 +46,16 @@ public class LockEscalationDemo2 {
                 System.out.println(Thread.currentThread().getName()+"释放锁。。。\n"
                         +ClassLayout.parseInstance(obj).toPrintable());
             }
-        },"thread1").start();
+        },"thread1");
+        t1.start();
+        t1.join();
+
+        obj.hashCode();
+
+        System.out.println(Thread.currentThread().getName()+"hashcode后"+ClassLayout.parseInstance(obj).toPrintable());
 
 
-
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 System.out.println(Thread.currentThread().getName()+"开始执行。。。\n"
@@ -68,16 +73,16 @@ public class LockEscalationDemo2 {
                 System.out.println(Thread.currentThread().getName()+"释放锁。。。\n"
                         +ClassLayout.parseInstance(obj).toPrintable());
             }
-        },"thread2").start();
+        },"thread2").start();*/
 
-        Thread.sleep(2000);
+//        Thread.sleep(2000);
 //        System.out.println("调用hashCode()方法前");
 //        System.out.println(ClassLayout.parseInstance(obj).toPrintable());
 //        obj.hashCode();
 //        System.out.println("调用hashCode()方法后");
 //        System.out.println(ClassLayout.parseInstance(obj).toPrintable());
 
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 System.out.println(Thread.currentThread().getName()+"开始执行。。。\n"
@@ -95,7 +100,7 @@ public class LockEscalationDemo2 {
                 System.out.println(Thread.currentThread().getName()+"释放锁。。。\n"
                         +ClassLayout.parseInstance(obj).toPrintable());
             }
-        },"thread3").start();
+        },"thread3").start();*/
 //
 //
 //        Thread.sleep(5000);

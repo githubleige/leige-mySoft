@@ -80,6 +80,7 @@
         <module>../leige-mySoft-RPC</module>
         <module>../leige-mySoft-redis</module>
         <module>../leige-mySoft-AOP</module>
+        <module>../leige-mySoft-design-pattern</module>
     </modules>
 
     <dependencyManagement>

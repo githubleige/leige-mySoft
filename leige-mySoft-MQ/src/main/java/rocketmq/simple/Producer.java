@@ -40,6 +40,7 @@ public class Producer {
                     //同步传递消息，消息会发给集群中的一个Broker节点。可以根据返回值来确认是否发送成功getSendStatus
                     SendResult sendResult = producer.send(msg);
                     System.out.printf("%s%n", sendResult);
+//                    单向发送，public void sendOneway(Message msg)。无返回值
 //                    producer.sendOneway(msg);
                 }
 

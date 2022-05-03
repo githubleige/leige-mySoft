@@ -17,6 +17,7 @@ public class User {
     }
 
     public void setId(int id) {
+        System.out.println("设置："+id);
         this.id = id;
     }
 

@@ -33,6 +33,7 @@ import java.util.List;
 public class Producer {
     public static void main(String[] args) throws UnsupportedEncodingException {
         try {
+
             DefaultMQProducer producer = new DefaultMQProducer("gelei_producer1");
             producer.setNamesrvAddr(MqConstant.nameSrv);
             producer.start();
@@ -51,7 +52,7 @@ public class Producer {
                          * @param mqs 对应主题创建的队列数目，一般在配置文件中，这里是8
                          * @param msg
                          * @param arg 这个参数是从外面的orderId传过来的
-                         * @return 指定发送队列
+                         * @return 发送到指定队列
                          */
                         @Override
                         public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {

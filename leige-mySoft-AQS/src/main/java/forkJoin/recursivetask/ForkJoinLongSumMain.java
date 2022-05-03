@@ -27,14 +27,14 @@ public class ForkJoinLongSumMain {
 
 		//递归任务（需要提交到 ForkJoinPool）
 		LongSum ls = new LongSum(array, 0, array.length);
-		LongSum ls1 = new LongSum(array, 0, array.length);
+//		LongSum ls1 = new LongSum(array, 0, array.length);
 		// 构建ForkJoinPool线程池
   		ForkJoinPool fjp  = new ForkJoinPool(NCPU);
 
-		ForkJoinPool fjp1= new ForkJoinPool(NCPU,
-				ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-				(t,e)-> System.out.println(t.getName()+":"+e.getMessage()),
-		false);
+//		ForkJoinPool fjp1= new ForkJoinPool(NCPU,
+//				ForkJoinPool.defaultForkJoinWorkerThreadFactory,
+//				(t,e)-> System.out.println(t.getName()+":"+e.getMessage()),
+//		false);
 
 		//获取当前时间，方便后面计算时间
 		Instant now = Instant.now();

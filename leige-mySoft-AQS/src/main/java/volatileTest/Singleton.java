@@ -1,5 +1,7 @@
 package volatileTest;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 实际上当程序执行到2处的时候，如果我们没有使用volatile关键字修饰变量singleton，就可能会造成错误。
  * 这是因为使用new关键字初始化一个对象的过程并不是一个原子的操作，它分成下面三个步骤进行：
@@ -16,6 +18,7 @@ package volatileTest;
 public class Singleton {
     //这里会用volatile修饰，这个很关键
     private volatile static Singleton singleton;
+
 
     //在init方法（构造方法）中进行执行初始化
     private int a=3;

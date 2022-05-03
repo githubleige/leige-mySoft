@@ -37,6 +37,7 @@ public class SqlFilterProducer {
                 tags[i % tags.length],
                 ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET)
             );
+            //再放一些其他的属性
             msg.putUserProperty("a", String.valueOf(i));
 
             SendResult sendResult = producer.send(msg);

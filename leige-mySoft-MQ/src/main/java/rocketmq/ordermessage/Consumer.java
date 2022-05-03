@@ -46,7 +46,7 @@ public class Consumer {
         //用一个进程去绑定一个队列
         consumer.registerMessageListener(new MessageListenerOrderly() {
             //因为用这种方式保证了在同一个队列中的信息会被顺序消费，但是在不同队列之间消息消费是没有顺序的
-            //这就是所说的：局部（处于同一个队列中的消息）有序，整体（处于不同队列但是被用一个消费者消费的信息）无须
+            //这就是所说的：局部（处于同一个队列中的消息）有序，整体（处于不同队列但是被用一个消费者消费的信息）无序
             @Override
             public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
                 context.setAutoCommit(true);

@@ -60,10 +60,18 @@ public class MyInstantiationAwareBeanPostProcessor implements InstantiationAware
      * InstantiationAwareBeanPostProcessor中自定义的方法
      * 可以用来修改Bean中属性的内容
      * 这里面是可以对xml文件中name值进行修改的
+     * <bean class="springTest.User" id="user" init-method="start" destroy-method="stop">
+     *         <property name="name" value="波波烤鸭"></property>
+     *         <property name="id" value="123"></property>
+     * </bean>
      */
     @Override
     public PropertyValues postProcessProperties(PropertyValues pvs, Object bean,
                                                     String beanName) throws BeansException {
+        /**
+         * name
+         * id
+         */
         for(PropertyValue propertyValue : pvs.getPropertyValues()){
             System.out.println(propertyValue.getName());
         }

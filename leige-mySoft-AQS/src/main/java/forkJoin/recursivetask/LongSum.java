@@ -25,11 +25,11 @@ public class LongSum extends RecursiveTask<Long> {
         if (high - low <= SEQUENTIAL_THRESHOLD) {
 
             long sum = 0;
-//            if(low==0){
-//
-//                low=1/0;
-//
-//            }
+            if(low==0){
+
+                low=1/0;
+
+            }
             for (int i = low; i < high; ++i) {
                 sum += array[i];
             }

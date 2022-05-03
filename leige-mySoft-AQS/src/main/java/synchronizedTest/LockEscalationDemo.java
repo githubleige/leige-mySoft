@@ -20,9 +20,13 @@ public class LockEscalationDemo{
         //HotSpot 虚拟机在启动后有个 4s 的延迟才会对每个新建的对象开启偏向锁模式
         Thread.sleep(5000);
         Object obj = new Object();
+        System.out.println("========================");
         // 思考： 如果对象调用了hashCode,还会开启偏向锁模式吗
         //obj.hashCode();
         System.out.println(ClassLayout.parseInstance(obj).toPrintable());
+        System.out.println("========================");
+       /* obj.hashCode();
+        System.out.println(ClassLayout.parseInstance(obj).toPrintable());*/
 
         new Thread(new Runnable() {
             @Override
@@ -31,8 +35,10 @@ public class LockEscalationDemo{
                         +ClassLayout.parseInstance(obj).toPrintable());
                 synchronized (obj){
                     // 思考：偏向锁执行过程中，调用hashcode会发生什么？
-                    //obj.hashCode();
-//                    //obj.notify();
+//                    System.out.println(Thread.currentThread().getName()+"hashcode之前。。。\n"
+//                            +ClassLayout.parseInstance(obj).toPrintable());
+//                    obj.hashCode();
+//                    obj.notify();
 ////                    try {
 ////                        obj.wait(50);
 ////                    } catch (InterruptedException e) {
@@ -65,12 +71,12 @@ public class LockEscalationDemo{
             }
         },"thread2").start();
 
-        Thread.sleep(100);
+        /*Thread.sleep(100);
         System.out.println("调用hashCode()方法前");
         System.out.println(ClassLayout.parseInstance(obj).toPrintable());
         obj.hashCode();
         System.out.println("调用hashCode()方法后");
-        System.out.println(ClassLayout.parseInstance(obj).toPrintable());
+        System.out.println(ClassLayout.parseInstance(obj).toPrintable());*/
 
 //        new Thread(new Runnable() {
 //            @Override

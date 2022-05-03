@@ -5,6 +5,8 @@
     <bean class="springTest.User" id="user" init-method="start" destroy-method="stop">
         <property name="name" value="波波烤鸭"></property>
         <property name="id" value="123"></property>
+
+        <property name="beanName" value="896"></property>
     </bean>
 
     <!-- 注册InstantiationAwareBeanPostProcessor对象 -->
